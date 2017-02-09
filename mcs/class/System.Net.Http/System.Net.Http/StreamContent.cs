@@ -83,6 +83,8 @@ namespace System.Net.Http
 
 		protected internal override Task SerializeToStreamAsync (Stream stream, TransportContext context)
 		{
+			if (content.CanSeek)
+				content.Position = 0;
 			return content.CopyToAsync (stream, bufferSize, cancellationToken);
 		}
 
